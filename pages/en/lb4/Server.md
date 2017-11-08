@@ -10,13 +10,12 @@ summary:
 
 ## Overview
 
-The [Server](https://apidocs.strongloop.com/@loopback%2fcore/#Server) interface defines the minimal required functions (start and stop) to implement for a LoopBack application. The server could have its own transport protocol, and has its own child Context inherited from Application context. You can overwrite the bindings inherited from the parent Application context, such as the port the server
-will listen on. This way, any Server-specific bindings will remain local to the Server instance, and will avoid polluting its parent module scope.
+The [Server](https://apidocs.strongloop.com/@loopback%2fcore/#Server) interface defines the minimal required functions (start and stop) to implement for a LoopBack application. Servers in LoopBack 4 are used to represent implementations for inbound transports and/or protocols such as REST over http, gRPC over http2, graphQL over https, etc. They typically listen for requests on a specific port, handle them, and return appropriate responses. A single application can have multiple server instances listening on different ports and working with different protocols.
 
 
 ## Usage
 
-LoopBack comes with an HTTP based server implementation handling requests over REST called `RestServer`. All you need to do is include the `RestComponent` as a component when you call the base Application class, and it will provide you with an instance of RestServer listening on port 3000.
+LoopBack 4 currently offers the [`@loopback/rest`](https://github.com/strongloop/loopback-next/tree/master/packages/rest) package out of the box which provides an HTTP based server implementation handling requests over REST called `RestServer`. In order to use it in your application, all you need to do is register the `RestComponent` to your application class, and it will provide you with an instance of RestServer listening on port 3000. The following shows how to make use of it:
 
 ```ts
 import {Application} from '@loopback/core';
